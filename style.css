@@ -1,0 +1,12 @@
+/*
+Theme Name: Bones
+Theme URI: http://thisisrobv.com
+Description: A simple theme framework.
+Version: 0.1
+Author: Rob V
+Author URI: http://thisisrobv.com
+Tags: Brilliance, Modest
+*/
+
+@import url('css/screen.css');
+@import url('js/facebox/facebox.css');

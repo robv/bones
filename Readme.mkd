@@ -1,0 +1,6 @@
+Bones - A Wordpress Theme Framework
+=========
+
+Creating Wordpress themes from scratch can be very repetitive, so I decided to put this theme together which includes everything to the point where customization is neccessary. It's a new project so there is still a lot to do, if you want to help, FORK!
+
+[Download Bones](http://github.com/robv/bones/zipball/HEAD) to get started.
