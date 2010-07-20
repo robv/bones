@@ -4,8 +4,7 @@ add_filter( 'the_generator', create_function('$a', "return null;") );
 
 require_once('theme-options.php' );
 
-
-/** Tell WordPress to run twentyten_setup() when the 'after_setup_theme' hook is run. */
+/** Tell WordPress to run bones_setup() when the 'after_setup_theme' hook is run. */
 add_action( 'after_setup_theme', 'bones_setup' );
 
 if ( ! function_exists( 'bones_setup' ) ):
@@ -46,26 +45,29 @@ function bones_setup() {
 	) );
 
 	// This theme allows users to set a custom background
-	add_custom_background();
+	// TODO: Add option to implement add_custom_background();
+	
+	if ($options['header_type'] == 'image')
+	{
+		// Your changeable header business starts here
+		define( 'HEADER_TEXTCOLOR', '' );
+		// No CSS, just IMG call. The %s is a placeholder for the theme template directory URI.
+		define( 'HEADER_IMAGE', '%s/images/headers/path.jpg' );
 
-	// Your changeable header business starts here
-	define( 'HEADER_TEXTCOLOR', '' );
-	// No CSS, just IMG call. The %s is a placeholder for the theme template directory URI.
-	define( 'HEADER_IMAGE', '%s/images/headers/path.jpg' );
+		// The height and width of your custom header. You can hook into the theme's own filters to change these values.
+		// Add a filter to twentyten_header_image_width and twentyten_header_image_height to change these values.
+		define( 'HEADER_IMAGE_WIDTH', apply_filters( 'bones_header_image_width', $options['header_width']) );
+		define( 'HEADER_IMAGE_HEIGHT', apply_filters( 'bones_header_image_height', $options['header_height']) );
 
-	// The height and width of your custom header. You can hook into the theme's own filters to change these values.
-	// Add a filter to twentyten_header_image_width and twentyten_header_image_height to change these values.
-	define( 'HEADER_IMAGE_WIDTH', apply_filters( 'bones_header_image_width', $options['header_width']) );
-	define( 'HEADER_IMAGE_HEIGHT', apply_filters( 'bones_header_image_height', $options['header_height']) );
+		// Don't support text inside the header image.
+		define( 'NO_HEADER_TEXT', true );
 
-	// Don't support text inside the header image.
-	define( 'NO_HEADER_TEXT', true );
+		// Add a way for the custom header to be styled in the admin panel that controls
+		// custom headers. See twentyten_admin_header_style(), below.
+		add_custom_image_header( '', 'bones_admin_header_style' );
 
-	// Add a way for the custom header to be styled in the admin panel that controls
-	// custom headers. See twentyten_admin_header_style(), below.
-	add_custom_image_header( '', 'bones_admin_header_style' );
-
-	// ... and thus ends the changeable header business.
+		// ... and thus ends the changeable header business.
+	}
 
 }
 endif;
