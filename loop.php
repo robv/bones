@@ -53,21 +53,23 @@
 				<h2 class="post_title">
 					<a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'bones' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
 				</h2>
-
-				<div class="post_meta">
-					<?php
-						printf(__('<span class="timestamp"><a href="%1$s" title="%2$s" rel="bookmark"><span class="entry-date">%3$s</span></a></span> <span class="author vcard">by <a class="url fn n" href="%4$s" title="%5$s">%6$s</a></span>', 'bones'),
-							get_permalink(),
-							esc_attr(get_the_time()),
-							get_the_date(),
-							get_author_posts_url(get_the_author_meta( 'ID' )),
-							sprintf(esc_attr__('View all posts by %s', 'bones'), get_the_author()),
-							get_the_author()
-						);
-					?>
-					<span class="category">in <?php the_category( ', ' ); ?></span> - 
-					<span class="comments"><?php comments_popup_link( __( 'Leave a comment', 'bones' ), __( '1 Comment', 'bones' ), __( '% Comments', 'bones' ) ); ?></span>
-				</div>
+				
+				<?php if (!is_page()) : // Let's only show meta info if it's not a page ?>
+					<div class="post_meta">
+						<?php
+							printf(__('<span class="timestamp"><a href="%1$s" title="%2$s" rel="bookmark"><span class="entry-date">%3$s</span></a></span> <span class="author vcard">by <a class="url fn n" href="%4$s" title="%5$s">%6$s</a></span>', 'bones'),
+								get_permalink(),
+								esc_attr(get_the_time()),
+								get_the_date(),
+								get_author_posts_url(get_the_author_meta( 'ID' )),
+								sprintf(esc_attr__('View all posts by %s', 'bones'), get_the_author()),
+								get_the_author()
+							);
+						?>
+						<span class="category">in <?php the_category( ', ' ); ?></span> - 
+						<span class="comments"><?php comments_popup_link( __( 'Leave a comment', 'bones' ), __( '1 Comment', 'bones' ), __( '% Comments', 'bones' ) ); ?></span>
+					</div>
+				<?php endif; ?>
 				
 				<div class="post_body">
 	
@@ -90,17 +92,11 @@
 				</div><!-- #entry-utility -->
 		
 			</div>
-
+		
+		<div class="post post_body">
 			<?php comments_template('', true); ?>
-
-	<?php endwhile; // End the loop. Whew. ?>
-
-	<?php /* Display navigation to next/previous pages when applicable */ ?>
-	<?php if (  $wp_query->max_num_pages > 1 ) : ?>
-		<div class="post_nav_bottom">
-			<div class="post_nav_prev"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Older posts', 'bones' ) ); ?></div>
-			<div class="post_nav_next"><?php previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>', 'bones' ) ); ?></div>
 		</div>
-	<?php endif; ?>
+		
+	<?php endwhile; // End the loop. Whew. ?>
 	
 <?php endif; ?>

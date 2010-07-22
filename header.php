@@ -45,5 +45,5 @@
 				<?php wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'primary' ) ); ?>
 			</div>
 		</div>
-		<div id="content_container">
+		<div id="content_container" class="clearfix">
 			<div id="content">
