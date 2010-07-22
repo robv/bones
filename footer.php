@@ -1,3 +1,4 @@
+			</div>
 		</div> <!-- END CONTENT -->
 		<div id="footer">
 			<?php // Footer ?>

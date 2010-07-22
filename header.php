@@ -33,7 +33,7 @@
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
-	<div class="container">
+	<div id="container">
 		<div id="header">
 			<?php if ($options['header_type'] == 'text') : ?>
 				<h1><a href="<?php echo get_option('home'); ?>"><?php echo $options['header_title']; ?></a></h1>
@@ -45,5 +45,5 @@
 				<?php wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'primary' ) ); ?>
 			</div>
 		</div>
-		<div id="content">
-			<?php // Content ?>
+		<div id="content_container">
+			<div id="content">
