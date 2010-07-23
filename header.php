@@ -11,8 +11,9 @@
 	<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
 
 	<script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/jquery-1.4.2.min.js"></script>
-	<script type="text/javascript" src="<?php bloginfo('template_url'); ?>/scripts/facebox/facebox.js"></script>
-	<script type="text/javascript" src="<?php bloginfo('template_url'); ?>/scripts/common.js"></script>
+	<script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/facebox/facebox.js"></script>
+	<script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/jquery.input_hint.js"></script>
+	<script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/common.js"></script>
 	 
 <?php if (ereg('iPhone', $_SERVER['HTTP_USER_AGENT']) || ereg('iPod', $_SERVER['HTTP_USER_AGENT']) || ereg('iPad',$_SERVER['HTTP_USER_AGENT'])): ?>
 	
