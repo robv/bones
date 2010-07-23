@@ -33,7 +33,7 @@
 
 	<?php wp_head(); ?>
 </head>
-<body <?php body_class(); ?>>
+<body>
 	<div id="container">
 		<div id="header">
 			<?php if ($options['header_type'] == 'text') : ?>

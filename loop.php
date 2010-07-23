@@ -49,13 +49,13 @@
 		 */ ?>
 	<?php while ( have_posts() ) : the_post(); ?>
 
-			<div <?php post_class(); ?>>
+			<div <?php post_class('post'); ?>>
 				<h2 class="post_title<?php if (is_single()) { echo ' post_title_single'; } ?>">
-					<?php if (!is_single()) : ?>
+					<?php if (!is_single() && !is_page()) : ?>
 						<a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'bones' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark">
 					<?php endif; ?>
 						<?php the_title(); ?>
-					<?php if (!is_single()) : ?>
+					<?php if (!is_single() && !is_page()) : ?>
 						</a>
 					<?php endif; ?>
 				</h2>
@@ -93,15 +93,15 @@
 				</div>
 
 				<div class="post_meta_footer clearfix">
-					<div class="tags"><strong>Tags:</strong> <?php the_tags( '<span class="tag">', ' ', '</span>' ); ?></div>
+					<?php if (!is_page()) : ?>
+						<div class="tags"><strong>Tags:</strong> <?php the_tags( '<span class="tag">', ' ', '</span>' ); ?></div>
+					<?php endif; ?>
 					<?php edit_post_link( __( 'Edit Post', 'blockhead' ), '<div class="edit"><strong>', '</strong></div>' ); ?>
 				</div><!-- #entry-utility -->
 		
 			</div>
 		
-		<div id="comments">
-			<?php comments_template('', true); ?>
-		</div>
+		<?php comments_template('', true); ?>
 		
 	<?php endwhile; // End the loop. Whew. ?>
 	
