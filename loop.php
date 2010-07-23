@@ -31,7 +31,7 @@
 
 	<?php /* Display navigation to next/previous pages when applicable */ ?>
 	<?php if ( $wp_query->max_num_pages > 1 ) : ?>
-		<div class="post_nav_top">
+		<div class="post_nav">
 			<div class="post_nav_prev"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Older posts', 'bones' ) ); ?></div>
 			<div class="post_nav_next"><?php previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>', 'bones' ) ); ?></div>
 		</div>
@@ -50,8 +50,14 @@
 	<?php while ( have_posts() ) : the_post(); ?>
 
 			<div <?php post_class(); ?>>
-				<h2 class="post_title">
-					<a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'bones' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
+				<h2 class="post_title<?php if (is_single()) { echo ' post_title_single'; } ?>">
+					<?php if (!is_single()) : ?>
+						<a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'bones' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark">
+					<?php endif; ?>
+						<?php the_title(); ?>
+					<?php if (!is_single()) : ?>
+						</a>
+					<?php endif; ?>
 				</h2>
 				
 				<?php if (!is_page()) : // Let's only show meta info if it's not a page ?>
@@ -93,7 +99,7 @@
 		
 			</div>
 		
-		<div class="post post_body">
+		<div id="comments">
 			<?php comments_template('', true); ?>
 		</div>
 		

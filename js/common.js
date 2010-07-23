@@ -15,6 +15,7 @@ var Site;
 			// On Dom Ready
 			$(function() {
 				$('a[rel*=facebox]').facebox();
+				$('input.hint').input_hint({attribute: 'title'});
 			});
 		
 			// On Window Load

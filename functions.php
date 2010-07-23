@@ -8,27 +8,7 @@ require_once('theme-options.php' );
 add_action( 'after_setup_theme', 'bones_setup' );
 
 if ( ! function_exists( 'bones_setup' ) ):
-/**
- * Sets up theme defaults and registers support for various WordPress features.
- *
- * Note that this function is hooked into the after_setup_theme hook, which runs
- * before the init hook. The init hook is too late for some features, such as indicating
- * support post thumbnails.
- *
- * To override twentyten_setup() in a child theme, add your own twentyten_setup to your child theme's
- * functions.php file.
- *
- * @uses add_theme_support() To add support for post thumbnails and automatic feed links.
- * @uses register_nav_menus() To add support for navigation menus.
- * @uses add_custom_background() To add support for a custom background.
- * @uses add_editor_style() To style the visual editor.
- * @uses load_theme_textdomain() For translation/localization support.
- * @uses add_custom_image_header() To add support for a custom header.
- * @uses register_default_headers() To register the default custom header images provided with the theme.
- * @uses set_post_thumbnail_size() To set a custom post thumbnail size.
- *
- * @since Twenty Ten 1.0
- */
+
 function bones_setup() {
 	
 	$options = get_option('bones_theme_options');
@@ -73,13 +53,7 @@ function bones_setup() {
 endif;
 
 if ( ! function_exists( 'bones_admin_header_style' ) ) :
-/**
- * Styles the header image displayed on the Appearance > Header admin panel.
- *
- * Referenced via add_custom_image_header() in twentyten_setup().
- *
- * @since Twenty Ten 1.0
- */
+
 function bones_admin_header_style() {
 ?>
 <style type="text/css">
@@ -159,3 +133,50 @@ function custom_logo() { ?>
 <?php }
 
 add_action('login_head', 'custom_logo');
+
+function blockhead_comment( $comment, $args, $depth ) {
+	$GLOBALS ['comment'] = $comment; 
+?>
+	<?php if ($comment->comment_type == '') : ?>
+	
+		<div <?php comment_class('clearfix'); ?> id="comment_<?php comment_ID(); ?>">	
+		
+			<div id="comment_<?php comment_ID(); ?>" class="clearfix comment_wrapper">
+			
+				<div class="comment_avatar">
+					<?php echo get_avatar($comment, 45); ?>
+				</div>
+
+				<div class="comment_meta commentmetadata clearfix">
+		
+					<div class="reply">
+						<?php comment_reply_link( array_merge( $args, array( 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
+					</div>
+
+					<?php printf( __( '<cite class="fn">%s</cite>', 'blockhead' ), get_comment_author_link() ); ?>
+
+					<?php edit_comment_link( __( '(Edit)', 'blockhead' ), ' ' ); ?>
+
+					<a href="<?php echo esc_url( get_comment_link( $comment->comment_ID ) ); ?>" class="comment_timestamp">
+					<?php printf( __( '%1$s at %2$s', 'blockhead' ), get_comment_date(),  get_comment_time() ); ?>
+					</a>
+
+				</div>
+
+				<div class="comment_body">
+					<?php if ( $comment->comment_approved == '0' ) : ?>
+						<p><em><?php _e( 'Your comment is awaiting moderation.', 'blockhead' ); ?></em></p>
+					<?php endif; ?>
+					<?php comment_text(); ?>
+				</div>
+
+			</div>
+			
+	<?php else : ?>
+	
+		<div class="comment_wrapper pingback">
+			<p><?php _e( 'Pingback:', 'blockhead' ); ?> <?php comment_author_link(); ?><?php edit_comment_link ( __('(Edit)', 'blockhead'), ' ' ); ?></p>
+	
+	<?php endif;
+	
+}
