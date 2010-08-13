@@ -2,7 +2,15 @@
 // Remove usless the_generator meta tag - whoops
 add_filter( 'the_generator', create_function('$a', "return null;") );
 
-require_once('theme-options.php' );
+
+// A little magic to let child themes overwrite the theme options page
+if (is_file(get_stylesheet_directory() . '/theme-options.php')) {
+	require_once(get_stylesheet_directory() . '/theme-options.php');
+}
+else {
+	require_once('theme-options.php');
+}
+
 
 /** Tell WordPress to run bones_setup() when the 'after_setup_theme' hook is run. */
 add_action( 'after_setup_theme', 'bones_setup' );
