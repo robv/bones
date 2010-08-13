@@ -61,20 +61,9 @@
 				</h2>
 				
 				<?php if (!is_page()) : // Let's only show meta info if it's not a page ?>
-					<div class="post_meta">
-						<?php
-							printf(__('<span class="timestamp"><a href="%1$s" title="%2$s" rel="bookmark"><span class="entry-date">%3$s</span></a></span> <span class="author vcard">by <a class="url fn n" href="%4$s" title="%5$s">%6$s</a></span>', 'bones'),
-								get_permalink(),
-								esc_attr(get_the_time()),
-								get_the_date(),
-								get_author_posts_url(get_the_author_meta( 'ID' )),
-								sprintf(esc_attr__('View all posts by %s', 'bones'), get_the_author()),
-								get_the_author()
-							);
-						?>
-						<span class="category">in <?php the_category( ', ' ); ?></span> - 
-						<span class="comments"><?php comments_popup_link( __( 'Leave a comment', 'bones' ), __( '1 Comment', 'bones' ), __( '% Comments', 'bones' ) ); ?></span>
-					</div>
+				
+					<?php get_template_part( 'parts/post_meta', 'index' ); ?>
+					
 				<?php endif; ?>
 				
 				<div class="post_body">
@@ -92,12 +81,7 @@
 			
 				</div>
 
-				<div class="post_meta_footer clearfix">
-					<?php if (!is_page()) : ?>
-						<div class="tags"><strong>Tags:</strong> <?php the_tags( '<span class="tag">', ' ', '</span>' ); ?></div>
-					<?php endif; ?>
-					<?php edit_post_link( __( 'Edit Post', 'blockhead' ), '<div class="edit"><strong>', '</strong></div>' ); ?>
-				</div><!-- #entry-utility -->
+				<?php get_template_part( 'parts/post_footer', 'index' ); ?>
 		
 			</div>
 		
